@@ -8,7 +8,11 @@ router.post('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-   console.log('hello')
+   Tasks.getById(req.params.id)
+      .then(task => {
+         res.status(200).json(task)
+      })
+      .catch(next)
 })
 
 

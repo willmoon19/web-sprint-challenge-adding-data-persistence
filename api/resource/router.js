@@ -9,9 +9,9 @@ router.post('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
    Resources.getById(req.params.id)
-      .then(data => {
+      .then(resource => {
          console.log('got here')
-         res.json(data)
+         res.status(200).json(resource)
       })
       .catch(next)
 })
