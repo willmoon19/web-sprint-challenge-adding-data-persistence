@@ -6,7 +6,8 @@ const Tasks = require('./model')
 router.post('/', (req, res, next) => {
    console.log('hello')
 })
-router.get('/', (req, res, next) => {
+
+router.get('/:id', (req, res, next) => {
    console.log('hello')
 })
 
