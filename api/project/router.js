@@ -5,10 +5,14 @@ const Projects = require('./model')
 
 
 router.post('/', (req, res, next) => {
-   console.log('hello')
+   Projects.addProj(req.body)
+      .then(proj => {
+         res.json(proj[0])
+      })
+      .catch(next)
 })
-router.get('/:id', (req, res, next) => {
-   Projects.getById(req.params.id)
+router.get('/', (req, res, next) => {
+   Projects.get()
       .then(project => {
          res.status(200).json(project)
       })

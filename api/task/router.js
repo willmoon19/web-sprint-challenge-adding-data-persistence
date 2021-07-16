@@ -4,11 +4,15 @@ const Tasks = require('./model')
 
 
 router.post('/', (req, res, next) => {
-   console.log('hello')
+   Tasks.addTask(req.body)
+      .then(task => {
+         res.json(task)
+      })
+      .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
-   Tasks.getById(req.params.id)
+router.get('/', (req, res, next) => {
+   Tasks.get()
       .then(task => {
          res.status(200).json(task)
       })

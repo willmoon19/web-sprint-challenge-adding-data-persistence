@@ -4,11 +4,15 @@ const Resources = require('./model')
 
 
 router.post('/', (req, res, next) => {
-   console.log('hello')
+   Resources.addRec(req.body)
+      .then(rec => {
+         res.json(rec[0])
+      })
+      .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
-   Resources.getById(req.params.id)
+router.get('/', (req, res, next) => {
+   Resources.get()
       .then(resource => {
          console.log('got here')
          res.status(200).json(resource)

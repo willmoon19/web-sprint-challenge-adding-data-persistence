@@ -2,7 +2,7 @@
 const db = require('../../data/dbConfig')
 
 
-const getById = async (id) => {
+const get = async () => {
    const task = await db('tasks as t')
       .leftJoin('projects as p', 'p.project_id', 't.project_id')
       .select(
@@ -13,7 +13,6 @@ const getById = async (id) => {
          'p.project_name',
          'p.project_description'
          )
-      .where('t.task_id', id)
 
       const taskBody = task.map(data => {
          return {
@@ -28,8 +27,22 @@ const getById = async (id) => {
    return taskBody
 }
 
+const getById = async (id) => {
+   const task = await db('tasks')
+      .where('task_id', id).first()
+   const newTask = { ...task, task_completed: !!task.task_completed}
+   
+
+   return newTask
+}
+
+const addTask = async (task) => {
+   const [id] = await db('tasks').insert(task)
+   return getById(id)
+}
 
 
 module.exports = {
-   getById,
+   get,
+   addTask
 }
